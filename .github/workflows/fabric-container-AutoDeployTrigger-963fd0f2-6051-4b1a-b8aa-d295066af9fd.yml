@@ -31,19 +31,19 @@ jobs:
           tenant-id: ${{ secrets.FABRICCONTAINER_AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.FABRICCONTAINER_AZURE_SUBSCRIPTION_ID }}
 
+      
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
-          registryUrl: 
+          registryUrl: <your-registry-url> # e.g., myregistry.azurecr.io
           registryUsername: ${{ secrets.FABRICCONTAINER_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.FABRICCONTAINER_REGISTRY_PASSWORD }}
           containerAppName: fabric-container
           resourceGroup: dataandanalytics
-          imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
+          imageToBuild: default/fabric-container:${{ github.sha }}
+          startupCommand: "python fabric.py"
+
+
 
 
